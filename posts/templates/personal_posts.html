@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% block personal_posts %}
+  <p>{{ message }}</p>
+  {% for post in posts %}
+    <div>
+      <p>{{ post.title }}</p>
+      <p>{{ post.publication_date }}</p>
+      <p>{{ post.description }}</p>
+
+      <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="post_id" value="{{post.id}}">
+        <input type="hidden" name="action" value="EDIT-POST">
+        <button type="submit">EDIT</button>
+      </form>
+
+      <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="post_id" value="{{post.id}}">
+        <input type="hidden" name="action" value="DELETE-POST">
+        <button type="submit">X</button>
+      </form>
+    </div>
+  {% endfor %}
+
+{% endblock personal_posts %}

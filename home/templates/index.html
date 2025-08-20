@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog app</title>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="/posts/">Posts</a>
+      </li>
+
+      <li>
+        <a href="/my-posts/">My Posts</a>
+      </li>
+
+      <li>
+        <a href="/add-post/">Add New Post</a>
+      </li>
+
+      {% if user.is_authenticated %}
+        <li>
+          <a href="/logout/">Logout</a>
+        </li>
+      {% else %}
+        <li>
+          <a href="/login/">Login</a>
+        </li>
+
+        <li>
+          <a href="/create-account/">Create Account</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <section>
+    <h1>Welcome {{ user.username }}</h1>
+    {% block login %}{% endblock login %}
+    {% block create_account %}{% endblock create_account %}
+    {% block show_posts %}{% endblock show_posts %}
+    {% block add_post %}{% endblock add_post %}
+    {% block personal_posts %}{% endblock personal_posts %}
+    {% block edit_post %}{% endblock edit_post %}
+    {% block edit_comment %}{% endblock edit_comment %}
+  </section>
+
+</body>
+</html>

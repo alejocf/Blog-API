@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% block edit_comment %}
+  <span>{{ post.user }}</span>
+  <p>{{ post.publication_date }}</p>
+  <p>{{ post.title }}</p>
+  <p>{{ post.description }}</p>
+
+  <p>{{ comment.user }}</p>
+  <p>{{ comment.publication_date }}</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <textarea name="newComment" >{{ comment.description }}</textarea>
+    <button type="submit" >Edit comment</button>
+  </form>
+
+
+{% endblock edit_comment %}

@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+
+{% block show_posts %}
+  <h2>Posts</h2>
+  <span>{{ message }}</span>
+  <br>
+  {% for post in posts %}
+    <span>{{ post.user }}</span>
+    <p>{{ post.publication_date }}</p>
+    <p>{{ post.title }}</p>
+    <p>{{ post.description }}</p>
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="CREATE-COMMENT">
+      <input type="hidden" name="post_id" value="{{ post.id }}">
+      <textarea name="comment_description" placeholder="Add a Comment"></textarea>
+      <button type="submit" >Comment</button>
+    </form>
+
+    <h2>Comments:</h2>
+    {% for comment in comments %}
+      {% if comment.post == post %}
+        <p>{{ comment.user }}</p>
+        <p>{{ comment.description }}</p>
+        <p>{{ comment.publication_date }}</p>
+
+        {% if comment.user == user %}
+        <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="post_id" value="{{ post.id }}">
+          <input type="hidden" name="action" value="EDIT-COMMENT">
+          <input type="hidden" name="comment_id" value="{{ comment.id }}" >
+          <button type="submit" >Edit comment</button>
+        </form>
+
+        <form method="POST">
+          {% csrf_token %}
+          {% comment %} <input type="hidden" name="post_id" value="{{ post.id }}"> {% endcomment %}
+          <input type="hidden" name="action" value="DELETE-COMMENT">
+          <input type="hidden" name="comment_id" value="{{ comment.id }}" >
+          <button type="submit" >Delete comment</button>
+        </form>
+
+
+
+        {% endif %}
+
+      {% endif %}
+
+      {% endfor %}
+    <p>-----------------------------------------------------------------------------</p>
+  {% endfor %}
+{% endblock show_posts %}
