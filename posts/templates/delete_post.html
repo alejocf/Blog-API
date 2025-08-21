@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block delete_post %}
+  <h2>Are you sure about delete your post ?</h2>
+  <div>
+    {{ post.user }}
+    <br>
+    {{ post.publication_date }}
+    <br>
+    {{ post.title }}
+    <br>
+    {{ post.description }}
+  </div>
+
+  <span>
+    Comments: {{ totalComment }}
+  </span>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" >Delete</button>
+  </form>
+
+{% endblock delete_post %}

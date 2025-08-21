@@ -8,19 +8,25 @@
       <p>{{ post.publication_date }}</p>
       <p>{{ post.description }}</p>
 
-      <form method="POST">
+      <a href="{% url 'edit_post' post.id %}" >Edit Post</a>
+      <a href="{% url 'delete_post' post.id %}" >Delete Post</a>
+
+
+
+
+      {% comment %} <form method="POST">
         {% csrf_token %}
         <input type="hidden" name="post_id" value="{{post.id}}">
         <input type="hidden" name="action" value="EDIT-POST">
         <button type="submit">EDIT</button>
-      </form>
-
+      </form> {% endcomment %}
+{% comment %}
       <form method="POST">
         {% csrf_token %}
         <input type="hidden" name="post_id" value="{{post.id}}">
         <input type="hidden" name="action" value="DELETE-POST">
         <button type="submit">X</button>
-      </form>
+      </form> {% endcomment %}
     </div>
   {% endfor %}
 

@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block add_comment %}
+  <h2>Create Comment</h2>
+
+  <form method="POST">
+    {% csrf_token %}
+    <div>
+      {{ post.user }}
+      <br>
+      {{ post.publication_date }}
+      <br>
+      {{ post.title }}
+      <br>
+      {{ post.description }}
+      <br>
+      {{ form.as_p}}
+    </div>
+    <input type="hidden" name="post_id" value="hola mundo" />
+    <button type="submit" >Create Comment</button>
+  </form>
+
+{% endblock add_comment %}
