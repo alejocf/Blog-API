@@ -6,6 +6,111 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DeleteView
 from django.views.generic.edit import CreateView, UpdateView
 
+from posts.serializers import CommentSerializer, PostSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+
+
+from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
+
+# # API VIEWS USING CLASSES
+# class PostAPIListView(ListAPIView):
+#   allowed_methods = ['GET', 'POST']
+#   serializer_class = PostSerializer
+#   queryset = Post.objects.all()
+
+
+# class PostDetailApiView(RetrieveUpdateAPIView):
+#   allowed_methods = ['GET', 'PUT', 'DELETE']
+#   serializer_class = PostSerializer
+#   queryset = Post.objects.all()
+
+# class CommentAPIListView(ListAPIView):
+#   allowed_methods = ['GET', 'POST']
+#   serializer_class = CommentSerializer
+#   queryset = Comment.objects.all()
+
+
+# class CommentDetailAPIView(RetrieveUpdateAPIView):
+#   allowed_methods = ['GET', 'PUT', 'DELETE']
+#   serializer_class = CommentSerializer
+#   queryset = Comment.objects.all()
+
+
+# # API VIEWS USING FUNCTIONS
+# @api_view(['GET', 'POST'])
+# def post_list(request):
+#   if request.method == 'POST':
+#     serializer = PostSerializer(data=request.data)
+#     serializer.is_valid(raise_exception=True)
+#     serializer.save()
+#     return Response(status=status.HTTP_201_CREATED)
+#   else:
+#     posts = Post.objects.all()
+#     serializer = PostSerializer(posts, many=True)
+#     return Response(serializer.data)
+
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def post_detail(request, pk):
+#   try:
+#     post = Post.objects.get(pk=pk)
+#   except Post.DoesNotExist:
+#     return Response(status=status.HTTP_404_NOT_FOUND)
+
+#   if request.method == 'PUT':
+#     serializer = PostSerializer(post, data=request.data)
+#     serializer.is_valid(raise_exception=True)
+#     serializer.save()
+#     return Response(status=status.HTTP_200_OK)
+
+#   if request.method == 'DELETE':
+#     post.delete()
+#     return Response(status=status.HTTP_204_NO_CONTENT)
+
+#   serializer = PostSerializer(post)
+#   return Response(serializer.data)
+
+# @api_view(['GET', 'POST'])
+# def comment_list(request):
+#   if request.method == 'POST':
+#     serializer = CommentSerializer(data=request.data)
+#     serializer.is_valid(raise_exception=True)
+#     serializer.save()
+#     return Response(status=status.HTTP_201_CREATED)
+
+#   comment = Comment.objects.all()
+#   serializer = CommentSerializer(comment, many=True)
+#   return Response(serializer.data)
+
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def comment_detail(request, pk):
+#   try:
+#     comment = Comment.objects.get(pk=pk)
+#   except Comment.DoesNotExist:
+#     return Response(status=status.HTTP_404_NOT_FOUND)
+
+#   if request.method == 'PUT':
+#     serializer = CommentSerializer(comment, data=request.data)
+#     serializer.is_valid(raise_exception=True)
+#     serializer.save()
+#     return Response(status=status.HTTP_200_OK)
+
+#   if request.method == 'DELETE':
+#     comment.delete()
+#     return Response(status=status.HTTP_204_NO_CONTENT)
+
+#   serializer = CommentSerializer(comment)
+#   return Response(serializer.data)
+
+
+
+
+
+
+
+
+
 
 # GENERAL POSTS
 class PostListView(LoginRequiredMixin, ListView):
