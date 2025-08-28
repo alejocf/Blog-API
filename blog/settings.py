@@ -10,6 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentication',
     'rest_framework',
+    'rest_framework_simplejwt',
     'posts',
     'home',
     'API'
@@ -77,12 +84,25 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("PGDATABASE", "blog_db"),
+        "USER": os.getenv("PGUSER", "alejo"),
+        "PASSWORD": os.getenv("PGPASSWORD", "alejandrocardenas123"),
+        "HOST": os.getenv("PGHOST", "127.0.0.1"),
+        "PORT": os.getenv("PGPORT", "5432"),
+        "CONN_MAX_AGE": 60,
     }
 }
+
 
 
 # Password validation
@@ -127,3 +147,20 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    # "DEFAULT_PERMISSION_CLASSES": (
+    #     "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+    # ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),   # duración del access token
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),      # refresh token dura 1 día
+    "ROTATE_REFRESH_TOKENS": False,                   # cambiar a True si quieres renovar refresh
+    "BLACKLIST_AFTER_ROTATION": True,                 # invalidar el refresh viejo
+    "AUTH_HEADER_TYPES": ("Bearer",),                 # cómo debe enviarse el token
+}

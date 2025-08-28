@@ -6,13 +6,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DeleteView
 from django.views.generic.edit import CreateView, UpdateView
 
-from posts.serializers import CommentSerializer, PostSerializer
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status
-
-
-from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
+# from posts.serializers import CommentSerializer, PostSerializer
+# from rest_framework.response import Response
+# from rest_framework.decorators import api_view
+# from rest_framework import status
+# from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
 
 # # API VIEWS USING CLASSES
 # class PostAPIListView(ListAPIView):
@@ -102,13 +100,6 @@ from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
 
 #   serializer = CommentSerializer(comment)
 #   return Response(serializer.data)
-
-
-
-
-
-
-
 
 
 
