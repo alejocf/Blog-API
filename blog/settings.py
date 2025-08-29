@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 
 import os
+import dj_database_url
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -26,13 +27,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m@@+40^=&lu$o)80d@%@+ix*@oe&7kma9srn#s9s1mt_%zsgn)'
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+
+if RENDER_EXTERNAL_HOSTNAME:
+  ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
@@ -43,12 +48,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authentication',
     'rest_framework',
     'rest_framework_simplejwt',
     'posts',
-    'home',
-    'API'
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -91,18 +94,26 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("PGDATABASE", "blog_db"),
-        "USER": os.getenv("PGUSER", "alejo"),
-        "PASSWORD": os.getenv("PGPASSWORD", "alejandrocardenas123"),
-        "HOST": os.getenv("PGHOST", "127.0.0.1"),
-        "PORT": os.getenv("PGPORT", "5432"),
-        "CONN_MAX_AGE": 60,
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.getenv("PGDATABASE", "blog_db"),
+#         "USER": os.getenv("PGUSER", "alejo"),
+#         "PASSWORD": os.getenv("PGPASSWORD", "alejandrocardenas123"),
+#         "HOST": os.getenv("PGHOST", "127.0.0.1"),
+#         "PORT": os.getenv("PGPORT", "5432"),
+#         "CONN_MAX_AGE": 60,
+#     }
+# }
 
+
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default="sqlite:///db.sqlite3",
+        conn_max_age=600
+    )
+}
 
 
 # Password validation
@@ -140,6 +151,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

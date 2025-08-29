@@ -11,11 +11,3 @@ class IsOwnerOrReadOnlyDetailAPIView(permissions.BasePermission):
       return True
 
     return obj.user == request.user
-
-class CanCreateContent(permissions.BasePermission):
-  """
-  Permite crear posts o comentarios propios
-  """
-
-  def has_permission(self, request, view):
-    return

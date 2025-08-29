@@ -1,14 +1,11 @@
+from django.contrib import admin
 from django.urls import path
 
-from posts.views import CreateCommentView, DeleteCommentView, DeletePersonalPostView, EditCommentView, PersonalPostView, PostCreateView, PostListView, UpdatePersonalPostView
+from posts.views import CommentAPIListView, CommentDetailAPIView, PostAPIListView, PostDetailApiView
 
 urlpatterns = [
-    path('add-post/', PostCreateView.as_view(), name='add_post'),
-    path('posts/', PostListView.as_view(), name='posts'),
-    path("posts/<int:pk>/create-comment/", CreateCommentView.as_view(), name="create_comment"),
-    path('my-posts/', PersonalPostView.as_view(), name='my_posts'),
-    path('my-posts/edit-post/<int:pk>/', UpdatePersonalPostView.as_view(), name='edit_post'),
-    path('my-posts/delete-post/<int:pk>/', DeletePersonalPostView.as_view(), name='delete_post'),
-    path('posts/<int:post_id>/edit-comment/<int:pk>/', EditCommentView.as_view(), name='edit_comment'),
-    path("posts/<int:post_id>/delete-comment/<int:pk>/", DeleteCommentView.as_view(), name="delete_comment")
+  path('posts/', PostAPIListView.as_view(), name=''),
+  path('posts/<int:pk>/', PostDetailApiView.as_view(), name=''),
+  path('comments/', CommentAPIListView.as_view(), name=''),
+  path('comments/<int:pk>/', CommentDetailAPIView.as_view(), name=''),
 ]

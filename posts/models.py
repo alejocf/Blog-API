@@ -9,7 +9,7 @@ class Post(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):
-    return f'Post "{self.title}" by {self.user.username}'
+    return f'Post: "{self.title}" by {self.user.username}'
 
 
 class Comment(models.Model):
@@ -17,3 +17,6 @@ class Comment(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   description = models.TextField()
   publication_date = models.DateField(default=date.today)
+
+  def __str__(self):
+    return f'Comment: "{self.description}" by {self.user.username}'
