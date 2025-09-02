@@ -18,7 +18,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
   comments = CommentSerializer(many=True, read_only=True)
-  user = UserSerializer()
+  user = UserSerializer(read_only=True)
   class Meta:
     model = Post
     fields = [
@@ -29,4 +29,3 @@ class PostSerializer(serializers.ModelSerializer):
       'user',
       'comments',
     ]
-    read_only_fields = ['user']
