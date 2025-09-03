@@ -16,13 +16,11 @@ class PersonalPostAPIListView(ListCreateAPIView):
   # permission_classes = [permissions.IsAuthenticated] # create more permissions
 
   def get_queryset(self):
-    user_id = self.kwargs['pk']
-    queryset = Post.objects.filter(user=user_id)
+    queryset = Post.objects.filter(user=self.request.user)
     return queryset
 
   def perform_create(self, serializer):
-    user_id = self.kwargs['pk']
-    serializer.save(user=user_id)
+    serializer.save(user=self.request.user)
 
 # POST DETAIL (PUT-DELETE POSTS)
 class PostDetailApiView(RetrieveUpdateAPIView):
@@ -40,19 +38,18 @@ class CommentAPIListView(ListAPIView):
   def perform_create(self, serializer):
     serializer.save(user=self.request.user)
 
+
 # GET AND CREATE PERSONAL COMMENTS
 class PersonalCommentAPIListView(ListCreateAPIView):
   serializer_class = CommentSerializer
   # permission_classes = [permissions.IsAuthenticated] # create more permissions
 
   def get_queryset(self):
-    user_id = self.kwargs['pk']
-    queryset = Comment.objects.filter(user=user_id)
+    queryset = Comment.objects.filter(user=self.request.user)
     return queryset
 
   def perform_create(self, serializer):
-    user_id = self.kwargs['pk']
-    serializer.save(user=user_id)
+    serializer.save(user=self.request.user)
 
 # COMMENTS DETAIL (PUT-DELETE COMMENTS)
 class CommentDetailAPIView(RetrieveUpdateAPIView):
