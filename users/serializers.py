@@ -13,16 +13,16 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     model = User
     fields = ['id', 'first_name', 'last_name', 'email', 'username', 'password']
 
-    def create (self, validated_data):
-      user = User.objects.create_user(
-        username=validated_data['username'],
-        email=validated_data.get('email'),
-        first_name=validated_data.get('first_name', ''),
-        last_name=validated_data.get('last_name', ''),
-        password=validated_data['password']
-      )
-      Profile.objects.create(user=user)
-      return user
+  def create (self, validated_data):
+    user = User.objects.create_user(
+      username=validated_data['username'],
+      email=validated_data.get('email'),
+      first_name=validated_data.get('first_name', ''),
+      last_name=validated_data.get('last_name', ''),
+      password=validated_data['password']
+    )
+    Profile.objects.create(user=user)
+    return user
 
 
 # Serializer to show in the frontened
