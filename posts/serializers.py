@@ -1,10 +1,10 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from posts.models import Comment, Post
-from users.serializers import UserSerializer
+from users.serializers import UserListSerializer
 
 class CommentSerializer(serializers.ModelSerializer):
-  user = UserSerializer()
+  user = UserListSerializer()
   class Meta:
     model = Comment
     fields = [
@@ -18,7 +18,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
   comments = CommentSerializer(many=True, read_only=True)
-  user = UserSerializer(read_only=True)
+  user = UserListSerializer(read_only=True)
   class Meta:
     model = Post
     fields = [
