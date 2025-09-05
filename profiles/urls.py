@@ -1,8 +1,8 @@
 from django.urls import path
 
-from profiles.views import ProfileCreateView
+from profiles.views import ProfileEditView
 
 
 urlpatterns = [
-  path('create-profile/', ProfileCreateView.as_view(), name=''),
+  path('create-profile/', ProfileEditView.as_view(), name=''),
 ]

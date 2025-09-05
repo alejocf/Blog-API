@@ -1,12 +1,10 @@
-from django.shortcuts import render
-from rest_framework.generics import CreateAPIView
-
-from profiles.models import Profile
+from rest_framework.generics import RetrieveUpdateAPIView
+from rest_framework import permissions
 from profiles.serializers import ProfileSerializer
 
-class ProfileCreateView(CreateAPIView):
-  queryset = Profile.objects.all()
+class ProfileEditView(RetrieveUpdateAPIView):
   serializer_class = ProfileSerializer
+  permission_classes = [permissions.IsAuthenticated]
 
-  def perform_create(self, serializer):
-    serializer.save(user=self.request.user)
+  def get_object(self):
+    return self.request.user.profile
