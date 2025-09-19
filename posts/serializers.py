@@ -4,16 +4,17 @@ from posts.models import Comment, Post
 from users.serializers import UserListSerializer
 
 class CommentSerializer(serializers.ModelSerializer):
-  user = UserListSerializer()
+  user = UserListSerializer(read_only=True) # Is important add 'read_only=true' else DRF wait for this data
   class Meta:
     model = Comment
     fields = [
+      # 'id',
       'post',
       'description',
       'publication_date',
       'user',
     ]
-    read_only_fields = ['user']
+    # read_only_fields = ['user']
 
 
 class PostSerializer(serializers.ModelSerializer):
