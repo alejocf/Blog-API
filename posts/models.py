@@ -8,6 +8,9 @@ class Post(models.Model):
   publication_date = models.DateField(default=date.today)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+  class Meta:
+    ordering = ['-publication_date']
+
   def __str__(self):
     return f'Post: "{self.title}" by {self.user.username}'
 
@@ -17,6 +20,9 @@ class Comment(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   description = models.TextField()
   publication_date = models.DateField(default=date.today)
+
+  class Meta:
+    ordering = ['-publication_date']
 
   def __str__(self):
     return f'Comment: "{self.description}" by {self.user.username}'

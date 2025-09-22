@@ -38,7 +38,6 @@ class CommentAPIListView(generics.ListAPIView):
   def perform_create(self, serializer):
     serializer.save(user=self.request.user)
 
-
 # GET AND CREATE PERSONAL COMMENTS
 class PersonalCommentAPIListView(generics.ListCreateAPIView):
   serializer_class = CommentSerializer
