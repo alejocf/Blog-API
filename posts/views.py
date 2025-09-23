@@ -23,8 +23,7 @@ class PersonalPostAPIListView(generics.ListCreateAPIView):
     serializer.save(user=self.request.user)
 
 # POST DETAIL (PUT-DELETE POSTS)
-class PostDetailApiView(generics.RetrieveUpdateAPIView):
-  allowed_methods = ['GET', 'PUT', 'DELETE']
+class PostDetailApiView(generics.RetrieveUpdateDestroyAPIView):
   serializer_class = PostSerializer
   queryset = Post.objects.all()
   permission_classes = [IsOwnerOrReadOnlyDetailAPIView]
@@ -51,8 +50,7 @@ class PersonalCommentAPIListView(generics.ListCreateAPIView):
     serializer.save(user=self.request.user)
 
 # COMMENTS DETAIL (PUT-DELETE COMMENTS)
-class CommentDetailAPIView(generics.RetrieveUpdateAPIView):
-  allowed_methods = ['GET', 'PUT', 'DELETE']
+class CommentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
   serializer_class = CommentSerializer
   queryset = Comment.objects.all()
   permission_classes = [IsOwnerOrReadOnlyDetailAPIView]
