@@ -73,34 +73,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blog.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.getenv("PGDATABASE", "blog_db"),
-#         "USER": os.getenv("PGUSER", "alejo"),
-#         "PASSWORD": os.getenv("PGPASSWORD", "alejandrocardenas123"),
-#         "HOST": os.getenv("PGHOST", "127.0.0.1"),
-#         "PORT": os.getenv("PGPORT", "5432"),
-#         "CONN_MAX_AGE": 60,
-#     }
-# }
-
-
-
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.getenv('DATA_BASE_URL'),
+        default='sqlite:///db.sqlite3',
         conn_max_age=600
     )
 }
