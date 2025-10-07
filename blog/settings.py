@@ -50,7 +50,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",   # tu frontend en desarrollo
-    "https://alejo-blog.vercel.app/",   # tu frontend en producción
+    "https://alejo-blog.vercel.app",   # tu frontend en producción
 ]
 
 
